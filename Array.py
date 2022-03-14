@@ -1,0 +1,1 @@
+# Array is collection of simler data type
