@@ -1,29 +1,54 @@
-from numpy import array
+# Quick sort in Python
+
+# function to find the partition position
+def partition(array, low, high):
+
+  # choose the rightmost element as pivot
+  pivot = array[high]
+
+  # pointer for greater element
+  i = low - 1
+
+  # traverse through all elements
+  # compare each element with pivot
+  for j in range(low, high):
+    if array[j] <= pivot:
+      # if element smaller than pivot is found
+      # swap it with the greater element pointed by i
+      i = i + 1
+
+      # swapping element at i with element at j
+      (array[i], array[j]) = (array[j], array[i])
+
+  # swap the pivot element with the greater element specified by i
+  (array[i + 1], array[high]) = (array[high], array[i + 1])
+
+  # return the position from where partition is done
+  return i + 1
+
+# function to perform quicksort
+def quickSort(array, low, high):
+  if low < high:
+
+    # find pivot element such that
+    # element smaller than pivot are on the left
+    # element greater than pivot are on the right
+    pi = partition(array, low, high)
+
+    # recursive call on the left of pivot
+    quickSort(array, low, pi - 1)
+
+    # recursive call on the right of pivot
+    quickSort(array, pi + 1, high)
 
 
-def Partition_logic(array,l,h):
-    i = l
-    j = h
-    pivot = array[l]
-    while i<j:
-        while array[i] <= pivot:
-            i= i + 1
-        while array[j] >= pivot:
-                j = j - 1
-        if i<j:
-            array[i], array[j] = array[j], array[i]
-    pivot,array[j] = pivot ,array[j]
-    return j
+data = [8, 7, 2, 1, 0, 9, 6]
+print("Unsorted Array")
+print(data)
 
-def Quick_sort(array,l,h):
-    if l<h:
-        pivot = Partition_logic(array,l,h)
-        Quick_sort(l,pivot-1)
-        Quick_sort(pivot+1,h)
+size = len(data)
 
+quickSort(data, 0, size - 1)
 
-
-
-arr = [4,6,2,5,7,9,1,3]
-Quick_sort(array,0,len(arr))
-print(array)
+print('Sorted Array in Ascending Order:')
+print(data)
